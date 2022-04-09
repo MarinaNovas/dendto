@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #15151b;
+    color: #ced3d6;
+}
+
+#app {
+    margin: 48px 64px 0;
+}
+
+#main {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+}
+
+#sidebar-container {
+    width: 300px;
+}

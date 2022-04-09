@@ -1,0 +1,39 @@
+[
+    {
+        "id": "2131231",
+        "type": "cluster",
+        "name": "кластер1",
+        "childrens": [
+            {
+                "id": "32333",
+                "type": "group",
+                "name": "группа1",
+                "isLinkedWithGroup": true,
+                "isLinkedWithCluster": true,
+                "childrens": [
+                    {
+                        "id": "11111",
+                        "type": "product",
+                        "name": "продукт1",
+                        "isLinkedWithGroup": true,
+                        "isLinkedWithCluster": true
+                    },
+                    {
+                        "id": "11111",
+                        "type": "product",
+                        "name": "продукт1",
+                        "isLinkedWithGroup": true,
+                        "isLinkedWithCluster": true
+                    },
+                    {
+                        "id": "2323",
+                        "type": "product",
+                        "name": "продукт2",
+                        "isLinkedWithGroup": true,
+                        "isLinkedWithCluster": true
+                    }
+                ]
+            }
+        ]
+    }
+]
