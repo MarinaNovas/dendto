@@ -6,3 +6,13 @@ export interface IEntity {
     name: string;
     childrens?: IEntity[];
 }
+
+export interface INodeInf{
+    [EEntityType.Cluster]:IEntity|null,
+    [EEntityType.Group]:IEntity|null,
+    [EEntityType.Product]:IEntity|null
+
+    /* cluster:IEntity|null,
+    group:IEntity|null,
+    product:IEntity|null */
+}

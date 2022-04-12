@@ -19,16 +19,46 @@
                         "isLinkedWithCluster": true
                     },
                     {
-                        "id": "11111",
+                        "id": "11112",
                         "type": "product",
-                        "name": "продукт1",
+                        "name": "продукт2",
                         "isLinkedWithGroup": true,
                         "isLinkedWithCluster": true
                     },
                     {
                         "id": "2323",
                         "type": "product",
+                        "name": "продукт3",
+                        "isLinkedWithGroup": true,
+                        "isLinkedWithCluster": true
+                    }
+                ]
+            },
+            {
+                "id": "32335",
+                "type": "group",
+                "name": "группа2",
+                "isLinkedWithGroup": true,
+                "isLinkedWithCluster": true,
+                "childrens": [
+                    {
+                        "id": "11121",
+                        "type": "product",
+                        "name": "продукт1",
+                        "isLinkedWithGroup": true,
+                        "isLinkedWithCluster": true
+                    },
+                    {
+                        "id": "11113",
+                        "type": "product",
                         "name": "продукт2",
+                        "isLinkedWithGroup": true,
+                        "isLinkedWithCluster": true
+                    },
+                    {
+                        "id": "232433",
+                        "type": "product",
+                        "name": "продукт3",
                         "isLinkedWithGroup": true,
                         "isLinkedWithCluster": true
                     }

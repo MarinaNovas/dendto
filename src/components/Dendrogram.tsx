@@ -1,19 +1,30 @@
 import * as d3 from 'd3';
 import {useEffect, useRef, VFC} from 'react';
 import {IEntity} from '../types';
-import jsonData from '../static/db.json';
+import { EEntityType } from '../enums';
+
+//import { INodeInf } from '../types';
+//import jsonData from '../static/db.json';
+
+import { useSelector} from 'react-redux';
+import {
+  selectCluster 
+} from '../reducers/clusterSlice';
 
 interface IProps {
-    onSelectEntity: (entity: IEntity) => void;
+    //onSelectEntity: (entity: IEntity) => void;
+    //onSelectEntity: (entity: INodeInf) => void;
+    onSelectEntity: (entity: any) => void;
 }
 
 const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
     const d3Container = useRef(null);
-    const data = jsonData as IEntity[];
+    //const data = jsonData as IEntity[];
+    const data = useSelector(selectCluster);
 
     useEffect(() => {
         if (data && data.length > 0) {
-            data.forEach(cluster => {
+            data.forEach((cluster:IEntity) => {
                 const width = 460;
                 const height = 460;
 
@@ -74,7 +85,7 @@ const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
                     .append('circle')
                     .on('click', (event, d) => {
                         event.target.style.fill = '#fff';
-                        onSelectEntity(d.data);
+                        onSelectEntity({[EEntityType.Cluster]:d.parent?.parent?.data,[EEntityType.Group]:d.parent?.data,[EEntityType.Product]:d.data});
                     })
                     .attr('r', 7)
                     .style('fill', '#69b3a2')
