@@ -17,7 +17,15 @@
   cursor: pointer;
 }
 
+.history__item-current{
+  color: #ffff00 !important;
+}
 .history__item:hover{
+  color: #00ff00 !important;
+  background-color:#ffffff12
+}
+
+.history__item--active{
   color: #00ff00 !important;
   background-color:#ffffff12
 }

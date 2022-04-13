@@ -21,6 +21,7 @@ import {
 
 import {
     selectHistoryStack,
+    selectHistoryCurrentIndex,
     addHistoryItem,
     setCurrentIndex,
 } from '../reducers/historySlice';
@@ -36,10 +37,9 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
     const [selectedCluster, setSelectedCluster] = useState<IEntity | null>(null);
     const data = useSelector(selectCluster);
     const history = useSelector(selectHistoryStack);
-    const dispatch = useDispatch();
+    const historyCurrentIndex = useSelector(selectHistoryCurrentIndex);
 
-    console.log('Entity');
-    console.log(data);
+    const dispatch = useDispatch();
 
     const entityCluster = entity?.type === EEntityType.Cluster
         ? entity
@@ -74,9 +74,13 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
         );
     }
 
+
     const handleClasterChange = (e: any) => {
         let id: string = e.target[e.target.selectedIndex].dataset.id;
-        setSelectedCluster(() => data.filter((cluster: IEntity) => cluster.id === id)[0]);
+        let cluster: IEntity = data.filter((cluster: IEntity) => cluster.id === id)[0];
+
+        setSelectedCluster(cluster);
+        cluster.id !== entityCluster.id ? setSelectedGroup(cluster.childrens?.[0] || null) : setSelectedGroup(entityGroup);
     }
 
     const createNodeInformation = () => {
@@ -91,7 +95,6 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
 
     const handleBtnDelete = () => {
         let nodeInformation = createNodeInformation();
-        console.log(nodeInformation);
         if (isProductVisible) {
             dispatch(addHistoryItem(data));
             dispatch(deleteProduct(nodeInformation));
@@ -120,10 +123,9 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
 
     }
 
-    const handleHistoryClick = (e:any)=>{
-        console.dir(e.target);
-        console.dir(e.target.id);
+    const handleHistoryClick = (e: any) => {
         let index = e.target.id;
+        if (historyCurrentIndex === -1) dispatch(addHistoryItem(data));
         dispatch(updateCluster(history[index]));
         dispatch(setCurrentIndex(parseInt(e.target.id)));
     }
@@ -132,12 +134,8 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
         setSelectedGroup(entityGroup);
         setSelectedCluster(entityCluster);
     }, [entity]);
-    //console.log(selectGroup); 
 
-    useEffect(() => {
-        console.log('Test selectedGroup');
-        console.log(selectedGroup);
-    });
+
 
     return (
         <div className='sidebar' id="sidebar">
@@ -215,8 +213,18 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
                             <ul className='history'>
                                 {
                                     history.map((item: [], index: any) => (
-                                        <li className='history__item' id={index} key={index} onClick={handleHistoryClick}>{`Snapshot #${index}`}</li>
-                                    ))
+                                        <li
+                                            className={`history__item ${index === historyCurrentIndex ? 'history__item--active' : ''} ${historyCurrentIndex !== -1 && index === history.length - 1 ? 'history__item-current' : ''}`}
+                                            id={index}
+                                            key={index}
+                                            onClick={handleHistoryClick}
+                                        >
+                                            {historyCurrentIndex !== -1 && index == history.length - 1 ? 'Current state' : `Snapshot #${index}`}
+                                        </li>
+                                    )
+
+
+                                    )
                                 }
                             </ul>
                         </React.Fragment>

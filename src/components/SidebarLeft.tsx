@@ -21,7 +21,6 @@ const SidebarLeft = () => {
 
   const data = useSelector(selectCluster);
   const dispatch = useDispatch();
-  console.log(data);
 
   const [treeData, updateTreeData] = useState(data);
 

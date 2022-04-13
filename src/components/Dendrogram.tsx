@@ -12,18 +12,20 @@ import {
 } from '../reducers/clusterSlice';
 
 interface IProps {
-    //onSelectEntity: (entity: IEntity) => void;
-    //onSelectEntity: (entity: INodeInf) => void;
-    onSelectEntity: (entity: IEntity) => void;
+    onSelectEntity: (entity: IEntity|null) => void;
 }
 
 const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
-    const d3Container = useRef(null);
-    //const data = jsonData as IEntity[];
     const data = useSelector(selectCluster);
+    const selectedEnitity = useRef<IEntity | null>(null);
+    
+    const d3Container = useRef(null);
+    //const width = window.screen.width - 600;
+    //const height = 600;
+    //const padding = 1;
 
     useEffect(() => {
-        
+        d3.select(d3Container.current).selectAll('svg').remove();
         if (data && data.length > 0) {
             data.forEach((cluster:IEntity) => {
                 const width = 460;
@@ -87,8 +89,17 @@ const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
                     .attr('transform', d => `translate(${d.y},${d.x})`)
                     .append('circle')
                     .on('click', (event, d) => {
-                        event.target.style.fill = '#fff';
-                        onSelectEntity(d.data);
+                        if (d.data.id === selectedEnitity.current?.id) {
+                            event.target.style.fill = '#3d4da9';
+                            event.target.style.stroke = '#000';
+                            selectedEnitity.current = null;
+                            onSelectEntity(null);
+                        } else {
+                            event.target.style.fill = '#67a8e3';
+                            event.target.style.stroke = '#9dc4e5';
+                            selectedEnitity.current = d.data;
+                            onSelectEntity(d.data);
+                        }
                     })
                     .attr('r', 7)
                     .style('fill', '#69b3a2')
@@ -103,7 +114,7 @@ const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
                     .text(d => d.data.name)
                     .attr('x', 30);
             });
-        }
+       }
     }, [data]);
 
     return <div ref={d3Container} />;

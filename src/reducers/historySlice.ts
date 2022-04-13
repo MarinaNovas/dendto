@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 
 interface IHistory {
   currentIndex:number;
@@ -18,11 +18,9 @@ export const historySlice = createSlice({
         state.stack.push(action.payload);
         return;
       }
-      console.log('test addHistoryItem')
       state.stack.length=state.currentIndex+1;
       state.stack[state.currentIndex]=action.payload;
       state.currentIndex=-1;
-      console.log(state)
       return;
     },
     setCurrentIndex:(state:any,action:any)=>{
@@ -37,5 +35,6 @@ export const historySlice = createSlice({
 export const {addHistoryItem, setCurrentIndex, removeHistoryItem}=historySlice.actions;
 
 export const selectHistoryStack = (state:any)=>state.history.stack;
+export const selectHistoryCurrentIndex = (state:any)=>state.history.currentIndex;
 
 export default historySlice.reducer;

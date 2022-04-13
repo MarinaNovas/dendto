@@ -12,10 +12,8 @@ export const clusterSlice = createSlice({
   initialState,
   reducers: {
     deleteProduct: (state: IEntity[], action) => {
-      console.log('delete product-1');
       return state.map((cluster: IEntity) => {
         if (cluster.id !== action.payload.cluster.id) return cluster;
-        console.log('delete product-2');
         return {
           ...cluster,
           childrens:cluster.childrens?.map((group:IEntity)=>{

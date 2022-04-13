@@ -25,13 +25,7 @@ import {Provider} from 'react-redux';
 const Main: VFC = () => {
     const [currentEntity, setCurrentEntity] = useState<IEntity | null>(null);
 
-    const handleEntitySelect = (entity: IEntity) => setCurrentEntity(entity);
-
-    //const [currentEntity, setCurrentEntity] = useState<any | null>(null);
-
-    //const handleEntitySelect = (entity: any) => setCurrentEntity(entity);
-
-    //console.log(currentEntity);
+    const handleEntitySelect = (entity: IEntity|null) => setCurrentEntity(entity);
     
     return (
         <Provider store={store}>
