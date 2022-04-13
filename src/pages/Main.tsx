@@ -1,15 +1,12 @@
 import {useState, VFC} from 'react';
 import {createRoot} from 'react-dom/client';
-//import {Provider} from 'react-redux';
 //import {configureStore} from '@reduxjs/toolkit';
 
 //import rootReducer from '../reducers';
  import {IEntity} from '../types';
-//import {INodeInf} from '../types';
 
 import Dendrogram from '../components/Dendrogram';
 import Sidebar from '../components/Sidebar';
-import SidebarLeft from '../components/SidebarLeft';
 
 import '../styles/reset.css';
 import '../styles/app.css';
@@ -30,9 +27,6 @@ const Main: VFC = () => {
     return (
         <Provider store={store}>
             <div id="main">
-                <div id="sidebar-container">
-                    <SidebarLeft />
-                </div>
                 <Dendrogram onSelectEntity={handleEntitySelect} />
 
                 <div id="sidebar-container">
