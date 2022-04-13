@@ -7,7 +7,6 @@ import { EEntityType } from '../enums';
 import '../styles/sidebar.css';
 import '../styles/button.css';
 import '../styles/input.css';
-import '../styles/history.css';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -16,15 +15,15 @@ import {
     changeGroupRelation,
     selectCluster,
     deleteGroup,
-    updateCluster
 } from '../reducers/clusterSlice';
 
 import {
     selectHistoryStack,
     selectHistoryCurrentIndex,
     addHistoryItem,
-    setCurrentIndex,
 } from '../reducers/historySlice';
+
+import History from '../components/History';
 
 
 
@@ -123,12 +122,6 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
 
     }
 
-    const handleHistoryClick = (e: any) => {
-        let index = e.target.id;
-        if (historyCurrentIndex === -1) dispatch(addHistoryItem(data));
-        dispatch(updateCluster(history[index]));
-        dispatch(setCurrentIndex(parseInt(e.target.id)));
-    }
 
     useEffect(() => {
         setSelectedGroup(entityGroup);
@@ -205,32 +198,9 @@ const Sidebar: VFC<IProps> = ({ entity }) => {
                 }
 
             </div>
-            <div className='sidebar__history'>
-                {
-                    isHistoryVisible && (
-                        <React.Fragment>
-                            <h1>History</h1>
-                            <ul className='history'>
-                                {
-                                    history.map((item: [], index: any) => (
-                                        <li
-                                            className={`history__item ${index === historyCurrentIndex ? 'history__item--active' : ''} ${historyCurrentIndex !== -1 && index === history.length - 1 ? 'history__item-current' : ''}`}
-                                            id={index}
-                                            key={index}
-                                            onClick={handleHistoryClick}
-                                        >
-                                            {historyCurrentIndex !== -1 && index == history.length - 1 ? 'Current state' : `Snapshot #${index}`}
-                                        </li>
-                                    )
-
-
-                                    )
-                                }
-                            </ul>
-                        </React.Fragment>
-                    )
-                }
-            </div>
+            {
+                isHistoryVisible && <History />
+            }
         </div>
     );
 };
