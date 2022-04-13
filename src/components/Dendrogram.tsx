@@ -14,7 +14,7 @@ import {
 interface IProps {
     //onSelectEntity: (entity: IEntity) => void;
     //onSelectEntity: (entity: INodeInf) => void;
-    onSelectEntity: (entity: any) => void;
+    onSelectEntity: (entity: IEntity) => void;
 }
 
 const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
@@ -23,12 +23,14 @@ const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
     const data = useSelector(selectCluster);
 
     useEffect(() => {
+        
         if (data && data.length > 0) {
             data.forEach((cluster:IEntity) => {
                 const width = 460;
                 const height = 460;
 
-                // append the svg object to the body of the page
+                // append the svg object to the body of the pag
+
                 const svg = d3
                     .select(d3Container.current)
                     .append('svg')
@@ -42,6 +44,7 @@ const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
                 d3Cluster(root);
 
                 // Add the links between nodes:
+
                 svg.selectAll('path')
                     .data(root.descendants().slice(1))
                     .join('path')
@@ -85,7 +88,7 @@ const Dendrogram: VFC<IProps> = ({onSelectEntity}) => {
                     .append('circle')
                     .on('click', (event, d) => {
                         event.target.style.fill = '#fff';
-                        onSelectEntity({[EEntityType.Cluster]:d.parent?.parent?.data,[EEntityType.Group]:d.parent?.data,[EEntityType.Product]:d.data});
+                        onSelectEntity(d.data);
                     })
                     .attr('r', 7)
                     .style('fill', '#69b3a2')

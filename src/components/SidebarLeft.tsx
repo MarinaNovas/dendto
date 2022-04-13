@@ -61,7 +61,7 @@ const SidebarLeft = () => {
             <ListItem1 item={item} />
         ))}
       </ul> */}
-      <button onClick={()=>dispatch(deleteProduct({cluster:{id:"2131231"},group:{id:"32335"},product:{id:"11113"}}))}>Delete product</button>
+     {/*  <button onClick={()=>dispatch(deleteProduct({cluster:{id:"2131231"},group:{id:"32335"},product:{id:"11113"}}))}>Delete product</button>
       <button onClick={()=>dispatch(addProduct({
           cluster:{id:"2131231"},
           group:{id:"32333"},
@@ -83,7 +83,7 @@ const SidebarLeft = () => {
           "isLinkedWithGroup": true,
           "isLinkedWithCluster": true
         }
-      }))}>Изменить связь</button>
+      }))}>Изменить связь</button> */}
     </div>
   );
 };

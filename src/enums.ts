@@ -4,7 +4,3 @@ export enum EEntityType {
     Product = 'product',
 }
 
-export enum EActionType{
-    Change='change',
-    Delete='delete',
-}

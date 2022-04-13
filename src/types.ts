@@ -1,4 +1,4 @@
-import {EEntityType} from './enums';
+import { EEntityType } from './enums';
 
 export interface IEntity {
     id: string;
@@ -7,12 +7,13 @@ export interface IEntity {
     childrens?: IEntity[];
 }
 
-export interface INodeInf{
-    [EEntityType.Cluster]:IEntity|null,
-    [EEntityType.Group]:IEntity|null,
-    [EEntityType.Product]:IEntity|null
+export interface INodeInf {
+    id: string | null;
+    newId?: string | null;
+}
 
-    /* cluster:IEntity|null,
-    group:IEntity|null,
-    product:IEntity|null */
+export interface IChangeNode {
+    [EEntityType.Cluster]: INodeInf,
+    [EEntityType.Group]: INodeInf | IEntity,
+    [EEntityType.Product]: IEntity| null
 }

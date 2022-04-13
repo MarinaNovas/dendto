@@ -4,7 +4,7 @@ import {createRoot} from 'react-dom/client';
 //import {configureStore} from '@reduxjs/toolkit';
 
 //import rootReducer from '../reducers';
-//import {IEntity} from '../types';
+ import {IEntity} from '../types';
 //import {INodeInf} from '../types';
 
 import Dendrogram from '../components/Dendrogram';
@@ -23,13 +23,13 @@ import {store} from '../app/store';
 import {Provider} from 'react-redux';
 
 const Main: VFC = () => {
-    //const [currentEntity, setCurrentEntity] = useState<IEntity | null>(null);
+    const [currentEntity, setCurrentEntity] = useState<IEntity | null>(null);
 
-    //const handleEntitySelect = (entity: IEntity) => setCurrentEntity(entity);
+    const handleEntitySelect = (entity: IEntity) => setCurrentEntity(entity);
 
-    const [currentEntity, setCurrentEntity] = useState<any | null>(null);
+    //const [currentEntity, setCurrentEntity] = useState<any | null>(null);
 
-    const handleEntitySelect = (entity: any) => setCurrentEntity(entity);
+    //const handleEntitySelect = (entity: any) => setCurrentEntity(entity);
 
     //console.log(currentEntity);
     

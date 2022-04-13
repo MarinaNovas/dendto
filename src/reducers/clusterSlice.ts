@@ -1,7 +1,8 @@
-import { /* createAsyncThunk, */ createSlice } from "@reduxjs/toolkit";
+import {createSlice } from "@reduxjs/toolkit";
+import { active } from "d3";
 
 import jsonData from '../static/db.json';
-import { IEntity } from '../types';
+import { IEntity,IChangeNode } from '../types';
 
 const initialState = jsonData as IEntity[];
 
@@ -11,8 +12,10 @@ export const clusterSlice = createSlice({
   initialState,
   reducers: {
     deleteProduct: (state: IEntity[], action) => {
+      console.log('delete product-1');
       return state.map((cluster: IEntity) => {
         if (cluster.id !== action.payload.cluster.id) return cluster;
+        console.log('delete product-2');
         return {
           ...cluster,
           childrens:cluster.childrens?.map((group:IEntity)=>{
@@ -28,7 +31,7 @@ export const clusterSlice = createSlice({
     },
     addProduct:(state: IEntity[], action)=>{
       return state.map((cluster: IEntity) => {
-        if (cluster.id !== action.payload.cluster.id) return cluster;
+        if (cluster.id !== action.payload.cluster.newId) return cluster;
         return {
           ...cluster,
           childrens:cluster.childrens?.map((group:IEntity)=>{
@@ -49,23 +52,45 @@ export const clusterSlice = createSlice({
           childrens:cluster.childrens?.filter((group:IEntity)=>group.id!==action.payload.group.id)
         }
       })
+    },
+    addGroup:(state:IEntity[],action)=>{
+      return state.map((cluster:IEntity)=>{
+        console.log('test addGroup');
+        if (cluster.id !== action.payload.cluster.newId) return cluster;
+        console.log(cluster);
+        return {
+          ...cluster,
+          childrens:[...cluster.childrens as IEntity[],action.payload.group]
+        }
+      })
+    },
+    updateCluster:(state:IEntity[],action)=>{
+      return state.map((cluster:IEntity,index)=>action.payload[index]);
     }
   }
 });
 
-export const {deleteProduct,addProduct, deleteGroup} = clusterSlice.actions;
+export const {deleteProduct,addProduct, deleteGroup, addGroup, updateCluster} = clusterSlice.actions;
 export const selectCluster = (state: any) => state.cluster;
 
-export const changeNodeRelation = (nodeData:any)=>(dispatch:any,getState:any)=>{
-  //const firstState = getState();
-  console.log('test1');
+export const changeNodeRelation = (nodeData:IChangeNode)=>(dispatch:any, getState:any)=>{
   dispatch(deleteProduct(nodeData));
-  const currentState = selectCluster(getState());
-
- if(currentState){
-  console.log('test2');
-  dispatch(addProduct(nodeData));
- }
-
+  let newState = selectCluster(getState());
+  console.log('test changeNodeRelation');
+  console.log(newState);
+  if(newState){
+    dispatch(addProduct(nodeData));
+  }
 }
+
+export const changeGroupRelation = (nodeData:IChangeNode)=>(dispatch:any, getState:any)=>{
+  dispatch(deleteGroup(nodeData));
+  let newState = selectCluster(getState());
+  if(newState){
+    console.log('test changeGroupRelation');
+    console.log(newState);
+    dispatch(addGroup(nodeData));
+  }
+}
+
 export default clusterSlice.reducer;

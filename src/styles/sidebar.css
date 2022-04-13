@@ -1,7 +1,23 @@
-#sidebar {
+.sidebar {
+    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-content: flex-end;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-end;
+}
+
+.sidebar__form{
+    margin-bottom: 50px;
+}
+
+.sidebar__history{
+    width: 100%;
+    text-align: center;
+}
+
+h1{
+    font-size: 30px !important;
+    margin-bottom: 20px !important;
 }
